@@ -2,151 +2,60 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>亞泥生態園區</title>
-  <meta name="description" content="Panorama Tour of Primrose House Style">
-  <meta name="author" content="Racarbry Developments">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/normalize.css">
-  <link rel="stylesheet" href="/css/skeleton.css">
-  <link rel="stylesheet" href="/css/fonts.css">
-  <link rel="stylesheet" href="/css/pannellum.css" />
-  <link rel="icon" type="image/png" href="/images/favicon.svg">
-  <style media="screen">
-    .panorama {
-      min-height: 100vh;
+  <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>-->
+  <link rel="stylesheet" href="./css/pannellum.css">
+  <script src="./js/pannellum.js"></script>
+  <style>
+    body {
+      margin: 0px;
     }
 
-    .help img {
-      vertical-align: middle;
-    }
-
-    h4 {
-      font-size: 2.4rem;
-    }
-
-    #actualPano {
-      position: relative;
-      top: -30px;
-      /*background-image: url("./img/F1.png");
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: contain;*/
-    }
-
-    .dimensions * {
-      font-size: 90%;
-    }
-
-    .smalllogo {
-      width: 118px;
-      height: 27px;
-      vertical-align: middle;
-    }
-
-    .new {
-      text-align: center;
-      background-color: rgb(100, 150, 150);
-      animation: new-animation 1s steps(5, start) infinite;
-      -webkit-animation: new-animation 1s steps(5, start) infinite;
-    }
-
-    @keyframes new-animation {
-      to {
-        background-color: transparent;
-      }
-    }
-
-    @-webkit-keyframes new-animation {
-      to {
-        background-color: transparent;
-      }
+    #panorama {
+      width: 100vw;
+      height: 100vh;
     }
 
     .four.columns {
       width: 400px;
     }
 
-    .map01 {
+    #svgfile {
       position: fixed;
-      right: 50px;
-      bottom: 0px;
       width: 20%;
+      bottom: 0;
+      right: 10px;
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <!--<div class="row">
-      <div class="ten columns gohome">
-        <h1>Virtual Tour</h1>
-        <p><img src="/img/RDLogo.png" class="smalllogo" alt="Racarbry Developments" /> &bull; Mulcreevy Park &bull;
-          Keady</p>
-      </div>
-      <div class="two columns">
-        <p></p>
-      </div>
-    </div>-->
-    <div class="row">
-      <div class="twelve columns">
-        <div class="panorama" id="panorama"></div>
-      </div>
-    </div>
-    <!--<div class="row">
-      <div class="twelve columns">
-        <p></p>
-      </div>
-    </div>-->
-    <div class="row">
-      <!--<div class="three columns">
-        <div class="help">
-          <h4>How to use the Tour</h4>
-          <p>
-            <span class="helpitem" id="h_p"><img src="legendPlus.png" alt="+"> Zoom in </span>
-            <br /><span class="helpitem" id="h_m"><img src="legendMinus.png" alt="-"> Zoom out </span>
-          </p>
-          <p><span class="helpitem" id="h_f"><img src="legendFullscreen.png" alt="[]"> Fullscreen
-              <br />Click and drag to move</span>
-            <span class="helpitem" id="h_c"><img src="legendCompass.png" alt="^"> VR Mode
-              <br /></span>
-          </p>
-          <p>Click on floorplan to move rooms</p>
+    <div class="panorama" id="panorama"></div>
+    <div class="four columns">
+      <div class="map map01">
+        <div src="" id="svgfile">
         </div>
-      </div>-->
-      <div class="four columns">
-        <div class="map map01">
-          <h4></h4>
-          <div src="" alt="Primrose Floormap" id="svgfile">
-          </div>
-        </div>
-      </div>
-      <div class="five columns">
-        <div id="num"></div>
-        <!--<div id="description">
-          <h4>Primrose,<br />Mulcreevy Park, Keady</h4>
-          <p>Boasting a 1073 ft2 floor area, these 3 bed room semi-detached homes at Mulcreevy Park are spacious whilst
-            maintaining a homely feel and scenic views of the countryside.</p>
-        </div>-->
       </div>
     </div>
   </div>
-  <script type="text/javascript" src="../js/libpannellum.js"></script>
-  <script type="text/javascript" src="../js/pannellum.js"></script>
-  <script src="../js/jquery-3.0.0.min.js" charset="utf-8"></script>
-  <script type="text/javascript">
+  <script src="./js/jquery-3.0.0.min.js" charset="utf-8"></script>
+  <script>
+
     let name = document.getElementById("svgfile");
     document.body.addEventListener("click", function (e) {
       if (!name.contains(e.target)) {
-        name.style.width = "100%";
-        name.style.right = "0px";
+        name.style.width = "20%";
+        name.style.right = "10px";
       } else {
         name.style.width = "40vw";
-        name.style.right = "500px";
+        name.style.right = "100px";
       }
     })
-
 
     function watermark() {
       $("<img/>", {
@@ -161,7 +70,1297 @@
         "mix-blend-mode": "multiply"
       });
     };
-    var Viewer = {};
+    var Viewer = pannellum.viewer('panorama', {
+      "default": {
+        "firstScene": "photo1",
+        "sceneFadeDuration": 1000,
+        "autoLoad": true
+      },
+      "scenes": {
+        "photo1": {
+          "title": "亞泥生態園區",
+          "hfov": 110,
+          "pitch": -15,
+          "yaw": 100,
+          "type": "equirectangular",
+          "panorama": "./0627/01.jpg",
+          "hotSpots": [
+            {
+              "pitch": -10,
+              "yaw": 33,
+              "type": "scene",
+              "text": "園區外圍步道",
+              "sceneId": "photo2"
+            }
+          ]
+        },
+        "photo2": {
+          "title": "園區外圍步道",
+          "hfov": 110,
+          "pitch": -15,
+          "yaw": 230,
+          "type": "equirectangular",
+          "panorama": "./0627/02.jpg",
+          "hotSpots": [
+            {
+              "pitch": -10,
+              "yaw": 220,
+              "type": "scene",
+              "text": "園區出入口",
+              "sceneId": "photo3"
+            },
+            {
+              "pitch": -8,
+              "yaw": 40,
+              "type": "scene",
+              "text": "亞泥生態園區",
+              "sceneId": "photo1"
+            }
+          ]
+        },
+        "photo3": {
+          "title": "園區出入口",
+          "hfov": 110,
+          "pitch": -15,
+          "yaw": -180,
+          "type": "equirectangular",
+          "panorama": "./0627/03.jpg",
+          "hotSpots": [
+            {
+              "pitch": -25,
+              "yaw": -15,
+              "type": "scene",
+              "text": "進入園區",
+              "sceneId": "photo4"
+            },
+            {
+              "pitch": -15,
+              "yaw": 55,
+              "type": "scene",
+              "text": "園區外圍步道",
+              "sceneId": "photo2"
+            }
+          ]
+        },
+        "photo4": {
+          "title": "進入園區",
+          "hfov": 110,
+          "pitch": -15,
+          "yaw": 150,
+          "type": "equirectangular",
+          "panorama": "./0627/04.jpg",
+          "hotSpots": [
+            {
+              "pitch": -15,
+              "yaw": 150,
+              "type": "scene",
+              "text": "愛玉解說場",
+              "sceneId": "photo5"
+            },
+            {
+              "pitch": -25,
+              "yaw": -18,
+              "type": "scene",
+              "text": "園區出入口",
+              "sceneId": "photo3"
+            }
+          ]
+        },
+        "photo5": {
+          "title": "愛玉解說場",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": 210,
+          "type": "equirectangular",
+          "panorama": "./0627/05.jpg",
+          "hotSpots": [
+            {
+              "pitch": -10,
+              "yaw": 210,
+              "type": "scene",
+              "text": "風車園區",
+              "sceneId": "photo6"
+            },
+            {
+              "pitch": -10,
+              "yaw": 35,
+              "type": "scene",
+              "text": "進入園區",
+              "sceneId": "photo4"
+            }
+          ]
+        },
+        "photo6": {
+          "title": "風車園區",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": 185,
+          "type": "equirectangular",
+          "panorama": "./0627/06.jpg",
+          "hotSpots": [
+            {
+              "pitch": -5,
+              "yaw": 90,
+              "type": "scene",
+              "text": "機車停車場",
+              "sceneId": "photo7"
+            },
+            {
+              "pitch": -10,
+              "yaw": -5,
+              "type": "scene",
+              "text": "愛玉解說場",
+              "sceneId": "photo5"
+            }
+          ]
+        },
+        "photo7": {
+          "title": "機車停車場",
+          "hfov": 120,
+          "pitch": -10,
+          "yaw": -90,
+          "type": "equirectangular",
+          "panorama": "./0627/07.jpg",
+          "hotSpots": [
+            {
+              "pitch": -15,
+              "yaw": -90,
+              "type": "scene",
+              "text": "汽車停車場",
+              "sceneId": "photo8"
+            },
+            {
+              "pitch": -5,
+              "yaw": 90,
+              "type": "scene",
+              "text": "風車園區",
+              "sceneId": "photo6"
+            }
+          ]
+        },
+        "photo8": {
+          "title": "汽車停車場",
+          "hfov": 120,
+          "pitch": -20,
+          "yaw": -85,
+          "type": "equirectangular",
+          "panorama": "./0627/08.jpg",
+          "hotSpots": [
+            {
+              "pitch": -15,
+              "yaw": -80,
+              "type": "scene",
+              "text": "員工宿舍",
+              "sceneId": "photo9"
+            },
+            {
+              "pitch": -10,
+              "yaw": 100,
+              "type": "scene",
+              "text": "機車停車場",
+              "sceneId": "photo7"
+            }
+          ]
+        },
+        "photo9": {
+          "title": "員工宿舍",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": -50,
+          "type": "equirectangular",
+          "panorama": "./0627/09.jpg",
+          "hotSpots": [
+            {
+              "pitch": -10,
+              "yaw": -45,
+              "type": "scene",
+              "text": "竹節蟲園區",
+              "sceneId": "photo10"
+            },
+            {
+              "pitch": -10,
+              "yaw": 138,
+              "type": "scene",
+              "text": "汽車停車場",
+              "sceneId": "photo8"
+            }
+          ]
+        },
+        "photo10": {
+          "title": "竹節蟲園區",
+          "hfov": 120,
+          "pitch": -10,
+          "yaw": 160,
+          "type": "equirectangular",
+          "panorama": "./0627/10.jpg",
+          "hotSpots": [
+            {
+              "pitch": -9,
+              "yaw": 176,
+              "type": "scene",
+              "text": "竹節蟲園區出入口",
+              "sceneId": "photo11"
+            },
+            {
+              "pitch": -5,
+              "yaw": 33,
+              "type": "scene",
+              "text": "員工宿舍",
+              "sceneId": "photo9"
+            },
+            {
+              "pitch": -3,
+              "yaw": -147,
+              "type": "scene",
+              "text": "植物步道區",
+              "sceneId": "photo17"
+            }
+          ]
+        },
+        "photo11": {
+          "title": "竹節蟲園區出入口",
+          "hfov": 100,
+          "pitch": -10,
+          "yaw": 125,
+          "type": "equirectangular",
+          "panorama": "./0627/11.jpg",
+          "hotSpots": [
+            {
+              "pitch": -12,
+              "yaw": -225,
+              "type": "scene",
+              "text": "竹節蟲園區前段",
+              "sceneId": "photo12"
+            },
+            {
+              "pitch": -45,
+              "yaw": -9,
+              "type": "scene",
+              "text": "竹節蟲園區",
+              "sceneId": "photo10"
+            }
+          ]
+        },
+        "photo12": {
+          "title": "竹節蟲園區前段",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": 10,
+          "type": "equirectangular",
+          "panorama": "./0627/12.jpg",
+          "hotSpots": [
+            {
+              "pitch": -25,
+              "yaw": -25,
+              "type": "scene",
+              "text": "竹節蟲園區中前段",
+              "sceneId": "photo13"
+            },
+            {
+              "pitch": -18,
+              "yaw": 150,
+              "type": "scene",
+              "text": "竹節蟲園區出入口",
+              "sceneId": "photo11"
+            }
+          ]
+        },
+        "photo13": {
+          "title": "竹節蟲園區中前段",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": 100,
+          "type": "equirectangular",
+          "panorama": "./0627/13.jpg",
+          "hotSpots": [
+            {
+              "pitch": -20,
+              "yaw": 64,
+              "type": "scene",
+              "text": "竹節蟲園區中後段",
+              "sceneId": "photo14"
+            },
+            {
+              "pitch": -30,
+              "yaw": -115,
+              "type": "scene",
+              "text": "竹節蟲園區前段",
+              "sceneId": "photo12"
+            }
+          ]
+        },
+        "photo14": {
+          "title": "竹節蟲園區中後段",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": -20,
+          "type": "equirectangular",
+          "panorama": "./0627/14.jpg",
+          "hotSpots": [
+            {
+              "pitch": -25,
+              "yaw": -45,
+              "type": "scene",
+              "text": "竹節蟲園區後段",
+              "sceneId": "photo15"
+            },
+            {
+              "pitch": -15,
+              "yaw": 125,
+              "type": "scene",
+              "text": "竹節蟲園區中前段",
+              "sceneId": "photo13"
+            }
+          ]
+        },
+        "photo15": {
+          "title": "竹節蟲園區後段",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": 40,
+          "type": "equirectangular",
+          "panorama": "./0627/15.jpg",
+          "hotSpots": [
+            {
+              "pitch": -20,
+              "yaw": 15,
+              "type": "scene",
+              "text": "竹節蟲園區底部",
+              "sceneId": "photo16"
+            },
+            {
+              "pitch": -25,
+              "yaw": 180,
+              "type": "scene",
+              "text": "竹節蟲園區中後段",
+              "sceneId": "photo14"
+            }
+          ]
+        },
+        "photo16": {
+          "title": "竹節蟲園區底部",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": 30,
+          "type": "equirectangular",
+          "panorama": "./0627/16.jpg",
+          "hotSpots": [
+            {
+              "pitch": -20,
+              "yaw": 110,
+              "type": "scene",
+              "text": "竹節蟲園區後段",
+              "sceneId": "photo15"
+            }
+          ]
+        },
+        "photo17": {
+          "title": "植物步道區",
+          "hfov": 120,
+          "pitch": -20,
+          "yaw": -40,
+          "type": "equirectangular",
+          "panorama": "./0627/17.jpg",
+          "hotSpots": [
+            {
+              "pitch": -10,
+              "yaw": 8,
+              "type": "scene",
+              "text": "麵包果樹區",
+              "sceneId": "photo18"
+            },
+            {
+              "pitch": -10,
+              "yaw": -86,
+              "type": "scene",
+              "text": "竹節蟲園區",
+              "sceneId": "photo10"
+            }
+          ]
+        },
+        "photo18": {
+          "title": "麵包果樹區",
+          "hfov": 120,
+          "pitch": -20,
+          "yaw": 150,
+          "type": "equirectangular",
+          "panorama": "./0627/18.jpg",
+          "hotSpots": [
+            {
+              "pitch": -5,
+              "yaw": 152,
+              "type": "scene",
+              "text": "籃球場",
+              "sceneId": "photo19"
+            },
+            {
+              "pitch": -15,
+              "yaw": -25,
+              "type": "scene",
+              "text": "植物步道區",
+              "sceneId": "photo17"
+            }
+          ]
+        },
+        "photo19": {
+          "title": "籃球場",
+          "hfov": 120,
+          "pitch": -20,
+          "yaw": -50,
+          "type": "equirectangular",
+          "panorama": "./0627/19.jpg",
+          "hotSpots": [
+            {
+              "pitch": -10,
+              "yaw": -53,
+              "type": "scene",
+              "text": "茄冬步道區",
+              "sceneId": "photo20"
+            },
+            {
+              "pitch": -1,
+              "yaw": 126,
+              "type": "scene",
+              "text": "麵包果樹區",
+              "sceneId": "photo18"
+            }
+          ]
+        },
+        "photo20": {
+          "title": "茄冬步道區",
+          "hfov": 120,
+          "pitch": -20,
+          "yaw": -70,
+          "type": "equirectangular",
+          "panorama": "./0627/20.jpg",
+          "hotSpots": [
+            {
+              "pitch": -10,
+              "yaw": -70,
+              "type": "scene",
+              "text": "蝴蝶飼育箱",
+              "sceneId": "photo21"
+            },
+            {
+              "pitch": -5,
+              "yaw": 100,
+              "type": "scene",
+              "text": "籃球場",
+              "sceneId": "photo19"
+            }
+          ]
+        },
+        "photo21": {
+          "title": "蝴蝶飼育箱",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": 125,
+          "type": "equirectangular",
+          "panorama": "./0627/21.jpg",
+          "hotSpots": [
+            {
+              "pitch": -2,
+              "yaw": 129,
+              "type": "scene",
+              "text": "茄冬步道區-2",
+              "sceneId": "photo22"
+            },
+            {
+              "pitch": -10,
+              "yaw": -50,
+              "type": "scene",
+              "text": "茄冬步道區",
+              "sceneId": "photo20"
+            }
+          ]
+        },
+        "photo22": {
+          "title": "茄冬步道區-2",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": 155,
+          "type": "equirectangular",
+          "panorama": "./0627/22.jpg",
+          "hotSpots": [
+            {
+              "pitch": -5,
+              "yaw": 158,
+              "type": "scene",
+              "text": "茄冬步道區-3",
+              "sceneId": "photo24"
+            },
+            {
+              "pitch": -10,
+              "yaw": -23,
+              "type": "scene",
+              "text": "蝴蝶飼育箱",
+              "sceneId": "photo21"
+            },
+            {
+              "pitch": -30,
+              "yaw": -114,
+              "type": "scene",
+              "text": "植栽區",
+              "sceneId": "photo23"
+            }
+          ]
+        },
+        "photo23": {
+          "title": "植栽區",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": 250,
+          "type": "equirectangular",
+          "panorama": "./0627/23.jpg",
+          "hotSpots": [
+            {
+              "pitch": -10,
+              "yaw": 240,
+              "type": "scene",
+              "text": "茄冬步道區-3",
+              "sceneId": "photo24"
+            },
+            {
+              "pitch": -20,
+              "yaw": -243,
+              "type": "scene",
+              "text": "茄冬步道區-2",
+              "sceneId": "photo22"
+            }
+          ]
+        },
+        "photo24": {
+          "title": "茄冬步道區-3",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": 50,
+          "type": "equirectangular",
+          "panorama": "./0627/24.jpg",
+          "hotSpots": [
+            {
+              "pitch": -5,
+              "yaw": -308,
+              "type": "scene",
+              "text": "網室蝴蝶園區",
+              "sceneId": "photo25"
+            },
+            {
+              "pitch": -20,
+              "yaw": 140,
+              "type": "scene",
+              "text": "植栽區",
+              "sceneId": "photo23"
+            },
+            {
+              "pitch": -10,
+              "yaw": 230,
+              "type": "scene",
+              "text": "茄冬步道區-2",
+              "sceneId": "photo22"
+            }
+          ]
+        },
+        "photo25": {
+          "title": "網室蝴蝶園區",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": 0,
+          "type": "equirectangular",
+          "panorama": "./0627/25.jpg",
+          "hotSpots": [
+            {
+              "pitch": -7,
+              "yaw": -23,
+              "type": "scene",
+              "text": "網室蝴蝶園區出入口",
+              "sceneId": "photo26"
+            },
+            {
+              "pitch": -10,
+              "yaw": 73,
+              "type": "scene",
+              "text": "茄冬步道區-3",
+              "sceneId": "photo24"
+            }
+          ]
+        },
+        "photo26": {
+          "title": "網室蝴蝶園區出入口",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": -150,
+          "type": "equirectangular",
+          "panorama": "./0627/26.jpg",
+          "hotSpots": [
+            {
+              "pitch": -20,
+              "yaw": -146,
+              "type": "scene",
+              "text": "網室蝴蝶園區入口",
+              "sceneId": "photo27"
+            },
+            {
+              "pitch": -12,
+              "yaw": 31,
+              "type": "scene",
+              "text": "網室蝴蝶園區",
+              "sceneId": "photo25"
+            }
+          ]
+        },
+        "photo27": {
+          "title": "網室蝴蝶園區入口",
+          "hfov": 110,
+          "pitch": -15,
+          "yaw": -130,
+          "type": "equirectangular",
+          "panorama": "./0627/27.jpg",
+          "hotSpots": [
+            {
+              "pitch": -15,
+              "yaw": -145,
+              "type": "scene",
+              "text": "水生植物區",
+              "sceneId": "photo28"
+            },
+            {
+              "pitch": -10,
+              "yaw": 50,
+              "type": "scene",
+              "text": "網室蝴蝶園區出入口",
+              "sceneId": "photo26"
+            },
+            {
+              "pitch": -5,
+              "yaw": -135,
+              "type": "scene",
+              "text": "食草植物區右側步道-3",
+              "sceneId": "photo47"
+            }
+          ]
+        },
+        "photo28": {
+          "title": "水生植物區",
+          "hfov": 110,
+          "pitch": -20,
+          "yaw": -20,
+          "type": "equirectangular",
+          "panorama": "./0627/28.jpg",
+          "hotSpots": [
+            {
+              "pitch": -20,
+              "yaw": -40,
+              "type": "scene",
+              "text": "食草植物區左側步道",
+              "sceneId": "photo29"
+            },
+            {
+              "pitch": -15,
+              "yaw": 35,
+              "type": "scene",
+              "text": "食草植物區",
+              "sceneId": "photo48"
+            },
+            {
+              "pitch": -5,
+              "yaw": 150,
+              "type": "scene",
+              "text": "網室蝴蝶園區入口",
+              "sceneId": "photo27"
+            }
+          ]
+        },
+        "photo29": {
+          "title": "食草植物區左側步道",
+          "hfov": 110,
+          "pitch": -15,
+          "yaw": -120,
+          "type": "equirectangular",
+          "panorama": "./0627/29.jpg",
+          "hotSpots": [
+            {
+              "pitch": -10,
+              "yaw": -131,
+              "type": "scene",
+              "text": "蜜源植物區-1",
+              "sceneId": "photo30"
+            },
+            {
+              "pitch": -20,
+              "yaw": 75,
+              "type": "scene",
+              "text": "深入水生植物區",
+              "sceneId": "photo49"
+            },
+            {
+              "pitch": -15,
+              "yaw": 5,
+              "type": "scene",
+              "text": "水生植物區",
+              "sceneId": "photo28"
+            }
+          ]
+        },
+        "photo30": {
+          "title": "蜜源植物區-1",
+          "hfov": 110,
+          "pitch": -15,
+          "yaw": 85,
+          "type": "equirectangular",
+          "panorama": "./0627/30.jpg",
+          "hotSpots": [
+            {
+              "pitch": -10,
+              "yaw": 85,
+              "type": "scene",
+              "text": "蜜源植物區-2",
+              "sceneId": "photo31"
+            },
+            {
+              "pitch": -10,
+              "yaw": -103,
+              "type": "scene",
+              "text": "食草植物區左側步道",
+              "sceneId": "photo29"
+            }
+          ]
+        },
+        "photo31": {
+          "title": "蜜源植物區-2",
+          "hfov": 110,
+          "pitch": -20,
+          "yaw": -75,
+          "type": "equirectangular",
+          "panorama": "./0627/31.jpg",
+          "hotSpots": [
+            {
+              "pitch": -10,
+              "yaw": -110,
+              "type": "scene",
+              "text": "食草植物區左側步道-2",
+              "sceneId": "photo35"
+            },
+            {
+              "pitch": -15,
+              "yaw": -30,
+              "type": "scene",
+              "text": "深入蜜源植物區",
+              "sceneId": "photo32"
+            },
+            {
+              "pitch": -10,
+              "yaw": 65,
+              "type": "scene",
+              "text": "蜜源植物區-1",
+              "sceneId": "photo30"
+            }
+          ]
+        },
+        "photo32": {
+          "title": "深入蜜源植物區",
+          "hfov": 110,
+          "pitch": -15,
+          "yaw": 210,
+          "type": "equirectangular",
+          "panorama": "./0627/32.jpg",
+          "hotSpots": [
+            {
+              "pitch": -10,
+              "yaw": -153,
+              "type": "scene",
+              "text": "蜜源植物區深處",
+              "sceneId": "photo33"
+            },
+            {
+              "pitch": -12,
+              "yaw": 65,
+              "type": "scene",
+              "text": "蜜源植物區-2",
+              "sceneId": "photo31"
+            }
+          ]
+        },
+        "photo33": {
+          "title": "蜜源植物區深處",
+          "hfov": 110,
+          "pitch": -15,
+          "yaw": 80,
+          "type": "equirectangular",
+          "panorama": "./0627/33.jpg",
+          "hotSpots": [
+            {
+              "pitch": -10,
+              "yaw": -95,
+              "type": "scene",
+              "text": "離開蜜源植物區",
+              "sceneId": "photo32"
+            }
+          ]
+        },
+        "photo35": {
+          "title": "食草植物區左側步道-2",
+          "hfov": 110,
+          "pitch": -15,
+          "yaw": 127,
+          "type": "equirectangular",
+          "panorama": "./0627/35.jpg",
+          "hotSpots": [
+            {
+              "pitch": -10,
+              "yaw": 134,
+              "type": "scene",
+              "text": "蜜源植物區左側步道",
+              "sceneId": "photo40"
+            },
+            {
+              "pitch": -20,
+              "yaw": 226,
+              "type": "scene",
+              "text": "深入食草植物區",
+              "sceneId": "photo36"
+            },
+            {
+              "pitch": -12,
+              "yaw": -45,
+              "type": "scene",
+              "text": "蜜源植物區-2",
+              "sceneId": "photo31"
+            }
+          ]
+        },
+        "photo36": {
+          "title": "深入食草植物區",
+          "hfov": 110,
+          "pitch": -15,
+          "yaw": 170,
+          "type": "equirectangular",
+          "panorama": "./0627/36.jpg",
+          "hotSpots": [
+            {
+              "pitch": -10,
+              "yaw": -203,
+              "type": "scene",
+              "text": "深入蜜源植物區-2",
+              "sceneId": "photo37"
+            },
+            {
+              "pitch": -15,
+              "yaw": 72,
+              "type": "scene",
+              "text": "食草植物區左側步道-2",
+              "sceneId": "photo35"
+            }
+          ]
+        },
+        "photo37": {
+          "title": "深入蜜源植物區-2",
+          "hfov": 110,
+          "pitch": -15,
+          "yaw": -100,
+          "type": "equirectangular",
+          "panorama": "./0627/37.jpg",
+          "hotSpots": [
+            {
+              "pitch": -22,
+              "yaw": -58,
+              "type": "scene",
+              "text": "深入蜜源植物區-3",
+              "sceneId": "photo38"
+            },
+            {
+              "pitch": -12,
+              "yaw": 62,
+              "type": "scene",
+              "text": "深入食草植物區",
+              "sceneId": "photo36"
+            },
+            {
+              "pitch": -5,
+              "yaw": 100,
+              "type": "scene",
+              "text": "食草植物區左側步道-2",
+              "sceneId": "photo35"
+            },
+            {
+              "pitch": -15,
+              "yaw": -120,
+              "type": "scene",
+              "text": "生命樹",
+              "sceneId": "photo39"
+            },
+            {
+              "pitch": -15,
+              "yaw": -170,
+              "type": "scene",
+              "text": "蜜源植物區左側步道",
+              "sceneId": "photo40"
+            }
+          ]
+        },
+        "photo38": {
+          "title": "深入蜜源植物區-3",
+          "hfov": 110,
+          "pitch": -15,
+          "yaw": -250,
+          "type": "equirectangular",
+          "panorama": "./0627/38.jpg",
+          "hotSpots": [
+            {
+              "pitch": -5,
+              "yaw": 100,
+              "type": "scene",
+              "text": "生命樹",
+              "sceneId": "photo39"
+            },
+            {
+              "pitch": -16,
+              "yaw": 18,
+              "type": "scene",
+              "text": "深入蜜源植物區-2",
+              "sceneId": "photo37"
+            }
+          ]
+        },
+        "photo39": {
+          "title": "生命樹",
+          "hfov": 110,
+          "pitch": -15,
+          "yaw": 110,
+          "type": "equirectangular",
+          "panorama": "./0627/39.jpg",
+          "hotSpots": [
+            {
+              "pitch": -15,
+              "yaw": -80,
+              "type": "scene",
+              "text": "蜜源植物區左側步道",
+              "sceneId": "photo40"
+            },
+            {
+              "pitch": -10,
+              "yaw": 210,
+              "type": "scene",
+              "text": "深入蜜源植物區-3",
+              "sceneId": "photo38"
+            },
+            {
+              "pitch": -12,
+              "yaw": 246,
+              "type": "scene",
+              "text": "深入蜜源植物區-2",
+              "sceneId": "photo37"
+            },
+            {
+              "pitch": -5,
+              "yaw": 100,
+              "type": "scene",
+              "text": "環教活動廣場-2",
+              "sceneId": "photo43"
+            }
+          ]
+        },
+        "photo40": {
+          "title": "蜜源植物區左側步道",
+          "hfov": 110,
+          "pitch": -15,
+          "yaw": -20,
+          "type": "equirectangular",
+          "panorama": "./0627/40.jpg",
+          "hotSpots": [
+            {
+              "pitch": -13,
+              "yaw": -57,
+              "type": "scene",
+              "text": "環教活動廣場",
+              "sceneId": "photo41"
+            },
+            {
+              "pitch": -13,
+              "yaw": -18,
+              "type": "scene",
+              "text": "生命樹",
+              "sceneId": "photo39"
+            },
+            {
+              "pitch": -15,
+              "yaw": 60,
+              "type": "scene",
+              "text": "深入蜜源植物區-2",
+              "sceneId": "photo37"
+            },
+            {
+              "pitch": -10,
+              "yaw": 125,
+              "type": "scene",
+              "text": "食草植物區左側步道-2",
+              "sceneId": "photo35"
+            }
+          ]
+        },
+        "photo41": {
+          "title": "環教活動廣場",
+          "hfov": 110,
+          "pitch": -15,
+          "yaw": 50,
+          "type": "equirectangular",
+          "panorama": "./0627/41.jpg",
+          "hotSpots": [
+            {
+              "pitch": -5,
+              "yaw": 155,
+              "type": "scene",
+              "text": "蜜源植物區左側步道",
+              "sceneId": "photo40"
+            },
+            {
+              "pitch": -10,
+              "yaw": 80,
+              "type": "scene",
+              "text": "生命樹",
+              "sceneId": "photo39"
+            },
+            {
+              "pitch": -15,
+              "yaw": 10,
+              "type": "scene",
+              "text": "蛹體展示箱",
+              "sceneId": "photo42"
+            },
+            {
+              "pitch": -10,
+              "yaw": 45,
+              "type": "scene",
+              "text": "環教活動廣場-2",
+              "sceneId": "photo43"
+            }
+          ]
+        },
+        "photo42": {
+          "title": "蛹體展示箱",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": 140,
+          "type": "equirectangular",
+          "panorama": "./0627/42.jpg",
+          "hotSpots": [
+            {
+              "pitch": -15,
+              "yaw": -8,
+              "type": "scene",
+              "text": "環教活動廣場",
+              "sceneId": "photo41"
+            },
+            {
+              "pitch": -20,
+              "yaw": 250,
+              "type": "scene",
+              "text": "環教活動廣場-2",
+              "sceneId": "photo43"
+            }
+          ]
+        },
+        "photo43": {
+          "title": "環教活動廣場-2",
+          "hfov": 110,
+          "pitch": -15,
+          "yaw": -30,
+          "type": "equirectangular",
+          "panorama": "./0627/43.jpg",
+          "hotSpots": [
+            {
+              "pitch": -15,
+              "yaw": 20,
+              "type": "scene",
+              "text": "生命樹",
+              "sceneId": "photo39"
+            },
+            {
+              "pitch": -9,
+              "yaw": 50,
+              "type": "scene",
+              "text": "環教活動廣場",
+              "sceneId": "photo41"
+            },
+            {
+              "pitch": -10,
+              "yaw": 100,
+              "type": "scene",
+              "text": "蛹體展示箱",
+              "sceneId": "photo42"
+            },
+            {
+              "pitch": -13,
+              "yaw": -70,
+              "type": "scene",
+              "text": "蜜源植物區右側步道",
+              "sceneId": "photo44"
+            }
+          ]
+        },
+        "photo44": {
+          "title": "蜜源植物區右側步道",
+          "hfov": 110,
+          "pitch": -15,
+          "yaw": 230,
+          "type": "equirectangular",
+          "panorama": "./0627/44.jpg",
+          "hotSpots": [
+            {
+              "pitch": -10,
+              "yaw": -10,
+              "type": "scene",
+              "text": "環教活動廣場-2",
+              "sceneId": "photo43"
+            },
+            {
+              "pitch": -15,
+              "yaw": -139,
+              "type": "scene",
+              "text": "食草植物區右側步道",
+              "sceneId": "photo45"
+            }
+          ]
+        },
+        "photo45": {
+          "title": "食草植物區右側步道",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": 110,
+          "type": "equirectangular",
+          "panorama": "./0627/45.jpg",
+          "hotSpots": [
+            {
+              "pitch": -15,
+              "yaw": -72,
+              "type": "scene",
+              "text": "蜜源植物區右側步道",
+              "sceneId": "photo44"
+            },
+            {
+              "pitch": -3,
+              "yaw": 115,
+              "type": "scene",
+              "text": "食草植物區右側步道-2",
+              "sceneId": "photo46"
+            }
+          ]
+        },
+        "photo46": {
+          "title": "食草植物區右側步道-2",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": -70,
+          "type": "equirectangular",
+          "panorama": "./0627/46.jpg",
+          "hotSpots": [
+            {
+              "pitch": -10,
+              "yaw": -70,
+              "type": "scene",
+              "text": "食草植物區右側步道-3",
+              "sceneId": "photo47"
+            },
+            {
+              "pitch": -2,
+              "yaw": 109,
+              "type": "scene",
+              "text": "食草植物區右側步道",
+              "sceneId": "photo45"
+            }
+          ]
+        },
+        "photo47": {
+          "title": "食草植物區右側步道-3",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": 120,
+          "type": "equirectangular",
+          "panorama": "./0627/47.jpg",
+          "hotSpots": [
+            {
+              "pitch": -5,
+              "yaw": 150,
+              "type": "scene",
+              "text": "水生植物區",
+              "sceneId": "photo28"
+            },
+            {
+              "pitch": -10,
+              "yaw": -85,
+              "type": "scene",
+              "text": "食草植物區右側步道-2",
+              "sceneId": "photo46"
+            },
+            {
+              "pitch": -2,
+              "yaw": 98,
+              "type": "scene",
+              "text": "網室蝴蝶園區入口",
+              "sceneId": "photo27"
+            }
+          ]
+        },
+        "photo48": {
+          "title": "食草植物區",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": -180,
+          "type": "equirectangular",
+          "panorama": "./0627/48.jpg",
+          "hotSpots": [
+            {
+              "pitch": -10,
+              "yaw": 190,
+              "type": "scene",
+              "text": "水生植物區",
+              "sceneId": "photo28"
+            }
+          ]
+        },
+        "photo49": {
+          "title": "深入水生植物區",
+          "hfov": 120,
+          "pitch": -15,
+          "yaw": -180,
+          "type": "equirectangular",
+          "panorama": "./0627/49.jpg",
+          "hotSpots": [
+            {
+              "pitch": -25,
+              "yaw": 25,
+              "type": "scene",
+              "text": "食草植物區左側步道",
+              "sceneId": "photo29"
+            },
+            {
+              "pitch": -10,
+              "yaw": 180,
+              "type": "scene",
+              "text": "水生植物區左側",
+              "sceneId": "photo50"
+            }
+          ]
+        },
+        "photo50": {
+          "title": "水生植物區左側",
+          "hfov": 110,
+          "pitch": -15,
+          "yaw": -180,
+          "type": "equirectangular",
+          "panorama": "./0627/50.jpg",
+          "hotSpots": [
+            {
+              "pitch": -20,
+              "yaw": -15,
+              "type": "scene",
+              "text": "離開水生植物區",
+              "sceneId": "photo49"
+            }
+          ]
+        }
+      }
+    }
+    );
     var img = "./img/map.svg";
     function isMobile() { return ('ontouchstart' in document.documentElement); }
     function canFullscreen() { return (document.fullscreenEnabled || document.mozFullScreenEnabled || document.webkitFullscreenEnabled || document.msFullscreenEnabled) }
@@ -170,7 +1369,6 @@
 
       // Load the floormap
       $('#svgfile').load(img, null, function () {
-        this.id = "actualPano";
 
         var binders = $("#Rooms").children();
         for (i = 0; i < binders.length; i++) {
@@ -182,16 +1380,12 @@
         //$($("#actualPano").children()[0]).width($(".map").width());
         //$($("#actualPano").children()[0]).height($(".map").width());
       });
-      // Load the panorama
-      $.getJSON("tour-min.json", function (data) {
-        Viewer = pannellum.viewer('panorama', data);
 
-        /*Viewer.on("scenechange", function (where) {
-          //$("#Rooms").children().css({ fill: "rgba(0,0,0,0)" });
-          //$("#Rooms #" + where).css({ fill: "rgba(0,100,0,0.5)" });
-          // $("#description").load("/panoramas/Primrose/" + where + "/" + where + ".html");
-        });*/
-      });
+      /*Viewer.on("scenechange", function (where) {
+        //$("#Rooms").children().css({ fill: "rgba(0,0,0,0)" });
+        //$("#Rooms #" + where).css({ fill: "rgba(0,100,0,0.5)" });
+        // $("#description").load("/panoramas/Primrose/" + where + "/" + where + ".html");
+      });*/
       watermark("/img/RDLogo.png");
       if (!canFullscreen()) $("#h_f").css({ "display": "none" });
       if (!isMobile()) $("#h_c").css({ "display": "none" });
@@ -218,6 +1412,7 @@
       Viewer.loadScene(evt.target.id);
 
     }
+
 
   </script>
 </body>
