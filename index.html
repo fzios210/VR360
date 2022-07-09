@@ -20,26 +20,66 @@
       height: 100vh;
     }
 
-    .four.columns {
-      width: 400px;
+    #svgfile {
+      width: 20vw;
     }
 
-    #svgfile {
+    .map {
       position: fixed;
-      width: 20%;
-      bottom: 0;
-      right: 10px;
+      bottom: 0px;
+      right: 0px;
     }
+
+    .map01 {
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    #hint {
+      background-image: url("img/giphy.gif");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      width: 200px;
+      height: 200px;
+      position: fixed;
+      bottom: 30%;
+      left: 48%;
+      z-index: 1;
+      transform: scaleX(-1);
+      /*animation-name: example;
+      animation-duration: 2s;
+      animation-delay: 2s;
+      animation-iteration-count: infinite;
+      
+      */
+    }
+
+    /*@keyframes example {
+      from {
+        width: 50px;
+        height: 50px;
+      }
+
+      to {
+        width: 100px;
+        height: 100px;
+      }
+    }*/
   </style>
 </head>
 
 <body>
   <div class="container">
+    <div id="hint"></div>
     <div class="panorama" id="panorama"></div>
-    <div class="four columns">
-      <div class="map map01">
-        <div src="" id="svgfile">
-        </div>
+    <div id="map" class="map">
+      <div src="" id="svgfile">
       </div>
     </div>
   </div>
@@ -47,29 +87,25 @@
   <script>
 
     let name = document.getElementById("svgfile");
+    var map = document.getElementById("map");
+    var hint = document.getElementById("hint");
     document.body.addEventListener("click", function (e) {
-      if (!name.contains(e.target)) {
-        name.style.width = "20%";
-        name.style.right = "10px";
+      if (name.contains(e.target)) {
+        if (name.style.width == "40vw") {
+          name.style.width = "20vw";
+          map.classList.remove("map01");
+        }
+        else {
+          name.style.width = "40vw";
+          map.classList.add("map01");
+        }
       } else {
-        name.style.width = "40vw";
-        name.style.right = "100px";
+        name.style.width = "20vw";
+        map.classList.remove("map01");
+        hint.style.display = "none";
       }
-    })
+    });
 
-    function watermark() {
-      $("<img/>", {
-        'id': "pnlm-watermark",
-        'src': src,
-      }).appendTo("#panorama").css({
-        "position": "absolute",
-        "right": "0px",
-        "bottom": "0px",
-        "opacity": 0.2,
-        "z-index": 100,
-        "mix-blend-mode": "multiply"
-      });
-    };
     var Viewer = pannellum.viewer('panorama', {
       "default": {
         "firstScene": "photo1",
@@ -79,12 +115,19 @@
       "scenes": {
         "photo1": {
           "title": "亞泥生態園區",
-          "hfov": 110,
-          "pitch": -15,
+          "hfov": 120,
+          "pitch": 2,
           "yaw": 100,
           "type": "equirectangular",
           "panorama": "./0627/01.jpg",
           "hotSpots": [
+            {
+              "pitch": -10,
+              "yaw": 33,
+              "type": "scene",
+              "text": "園區外圍步道",
+              "sceneId": "photo2"
+            },
             {
               "pitch": -10,
               "yaw": 33,
@@ -1362,57 +1405,38 @@
     }
     );
     var img = "./img/map.svg";
-    function isMobile() { return ('ontouchstart' in document.documentElement); }
-    function canFullscreen() { return (document.fullscreenEnabled || document.mozFullScreenEnabled || document.webkitFullscreenEnabled || document.msFullscreenEnabled) }
-
     loader = (function () {
-
       // Load the floormap
       $('#svgfile').load(img, null, function () {
 
         var binders = $("#Rooms").children();
         for (i = 0; i < binders.length; i++) {
+
           $(binders[i]).click(sceneTo);
-          //$(binders[i]).css({ fill: "rgba(0,0,0,0)" }); // hide the map click areas
-        } // i
-        //highlight start location
-        //$("#Rooms #hall").css({ fill: "rgba(0,100,0,0.5)" });
-        //$($("#actualPano").children()[0]).width($(".map").width());
-        //$($("#actualPano").children()[0]).height($(".map").width());
+          $(binders[i]).click(function () {
+          });
+          $(binders[i]).hover(function () {
+            $(this).css({ fill: "rgba(255,255,255,0.3)" });
+          }, function () {
+            $(this).css({ fill: "rgba(255,255,255,0)" });
+          });
+        }
       });
-
-      /*Viewer.on("scenechange", function (where) {
-        //$("#Rooms").children().css({ fill: "rgba(0,0,0,0)" });
-        //$("#Rooms #" + where).css({ fill: "rgba(0,100,0,0.5)" });
-        // $("#description").load("/panoramas/Primrose/" + where + "/" + where + ".html");
-      });*/
-      watermark("/img/RDLogo.png");
-      if (!canFullscreen()) $("#h_f").css({ "display": "none" });
-      if (!isMobile()) $("#h_c").css({ "display": "none" });
-      $(".gohome").click(function () { location.href = "/"; });
-      // Nice scroll to get title out of the way
-      setTimeout(function () {
-        var startLoc = "hall";
-        $("html, body").animate({ scrollTop: $("#panorama").offset().top });
-        //$("#description").load("/panoramas/Primrose/" + startLoc + "/" + startLoc + ".html");
-      }, 1500);
-
     });
+
     try {
       $(document).ready(loader);
     } catch (err) {
       $("container").ready(loader);
     }
+
     function sceneTo(evt) {
-      if ( // exclude non pano rooms
-        (evt.target.id == "toilet")
-      ) { return; }
-      console.log("Navigate to " + evt.target.id);
-
       Viewer.loadScene(evt.target.id);
-
     }
 
+    function left() {
+      Viewer.setYaw(70);
+    }
 
   </script>
 </body>
